@@ -67,7 +67,7 @@ export default function Navbar() {
           </Flex>
         </Flex>
 
-        <Stack
+        {/* <Stack
           flex={{ base: 1, md: 0 }}
           justify={"flex-end"}
           direction={"row"}
@@ -95,7 +95,7 @@ export default function Navbar() {
           >
             Sign Up
           </Button>
-        </Stack>
+        </Stack> */}
       </Flex>
 
       <Collapse in={isOpen} animateOpacity>
@@ -260,7 +260,19 @@ const MobileNavItem = ({ label, children, href }) => {
 
 const NAV_ITEMS = [
   {
-    label: "Inspiration",
+    label: "Home",
+    href: "/",
+  },
+  {
+    label: "Devices",
+    href: "/devices",
+  },
+  {
+    label: "About us",
+    href: "/about-us",
+  },
+  {
+    label: "Radiology",
     children: [
       {
         label: "Explore Design Work",
@@ -275,26 +287,15 @@ const NAV_ITEMS = [
     ],
   },
   {
-    label: "Find Work",
-    children: [
-      {
-        label: "Job Board",
-        subLabel: "Find your dream design job",
-        href: "#",
-      },
-      {
-        label: "Freelance Projects",
-        subLabel: "An exclusive list for contract work",
-        href: "#",
-      },
-    ],
+    label: "Locations",
+    href: "/locations",
   },
   {
-    label: "Learn Design",
-    href: "#",
+    label: "Contact us",
+    href: "/contact-us",
   },
   {
-    label: "Hire Designers",
-    href: "#",
+    label: "Take our Survey",
+    href: "/survey",
   },
 ];
