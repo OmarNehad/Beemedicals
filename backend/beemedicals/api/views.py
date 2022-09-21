@@ -1,7 +1,4 @@
-from ast import Return
-from itertools import product
 import json
-from msilib.schema import ListView
 from django.http import JsonResponse
 from django.shortcuts import render
 from .models import *
@@ -15,6 +12,9 @@ from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django.views.decorators.csrf import csrf_exempt
 
+    
+
+
 # Create your views here.
 class GetCategoryList(generics.ListAPIView):
     serializer_class = CategorySerializer
@@ -23,6 +23,24 @@ class GetCategoryList(generics.ListAPIView):
 class GetProductsList(generics.ListAPIView):
     serializer_class = ProductSerializer
     queryset = Product.objects.all()
+    
+class GetCategoryProducts(views.APIView):
+    serializer_class = ProductSerializer
+    def get(self,request,slug):
+        queryset = Category.objects.filter(slug=slug)
+        if len(queryset) > 0:
+            return Response(self.serializer_class( queryset[0].products.all(), many=True, context={'request': request}).data, status=status.HTTP_200_OK)
+        return Response({'Category Not Found': 'Invalid Category name.'}, status=status.HTTP_404_NOT_FOUND)
+
+
+class GetProduct(views.APIView):
+    serializer_class = ProductSerializer
+    def get(self,prslug):
+        queryset  = Product.objects.filter(slug=prslug)        
+        if len(queryset) > 0:
+            return Response(self.serializer_class(queryset[0]).data, status=status.HTTP_200_OK)
+        return Response({'Product Not Found': 'Invalid Product name.'}, status=status.HTTP_404_NOT_FOUND)
+
 
 # class GetCartItems(views.APIView,LoginRequiredMixin):
 #     def get(request, format=None):
@@ -39,20 +57,6 @@ class GetProductsList(generics.ListAPIView):
 #             return Response(product_images, status=status.HTTP_200_OK)
 #         return Response({'Product Not Found': 'Invalid Product name.'}, status=status.HTTP_404_NOT_FOUND)
 
-class GetCategoryProducts(views.APIView):
-    def get(self,reqeust,slug):
-        queryset = Category.objects.filter(slug=slug)
-        if len(queryset) > 0:
-            products = [ProductSerializer(obj).data for obj in Product.objects.filter(category__slug=slug) ]
-            return Response(products, status=status.HTTP_200_OK)
-        return Response({'Category Not Found': 'Invalid Category name.'}, status=status.HTTP_404_NOT_FOUND)
-
-class GetProduct(views.APIView):
-    def get(self,reqeust,prslug):
-        queryset  = Product.objects.filter(slug=prslug)        
-        if len(queryset) > 0:
-            return Response(ProductSerializer(queryset[0]).data, status=status.HTTP_200_OK)
-        return Response({'Product Not Found': 'Invalid Product name.'}, status=status.HTTP_404_NOT_FOUND)
 
 # def get_csrf(request):
 #     response = JsonResponse({"Info": "Success - Set CSRF cookie"})

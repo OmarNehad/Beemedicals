@@ -1,5 +1,4 @@
 // import Footer from "./footer";
-import { Container } from "@chakra-ui/react";
 import Footer from "./footer";
 import Navbar from "./navbar";
 
