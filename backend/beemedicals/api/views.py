@@ -26,8 +26,8 @@ class GetProductsList(generics.ListAPIView):
     
 class GetCategoryProducts(views.APIView):
     serializer_class = ProductSerializer
-    def get(self,request,slug):
-        queryset = Category.objects.filter(slug=slug)
+    def get(self,request,ctslug):
+        queryset = Category.objects.filter(slug=ctslug)
         if len(queryset) > 0:
             return Response(self.serializer_class( queryset[0].products.all(), many=True, context={'request': request}).data, status=status.HTTP_200_OK)
         return Response({'Category Not Found': 'Invalid Category name.'}, status=status.HTTP_404_NOT_FOUND)
@@ -35,10 +35,10 @@ class GetCategoryProducts(views.APIView):
 
 class GetProduct(views.APIView):
     serializer_class = ProductSerializer
-    def get(self,prslug):
+    def get(self,request,prslug):
         queryset  = Product.objects.filter(slug=prslug)        
         if len(queryset) > 0:
-            return Response(self.serializer_class(queryset[0]).data, status=status.HTTP_200_OK)
+            return Response(self.serializer_class(queryset[0],context={'request': request}).data, status=status.HTTP_200_OK)
         return Response({'Product Not Found': 'Invalid Product name.'}, status=status.HTTP_404_NOT_FOUND)
 
 
