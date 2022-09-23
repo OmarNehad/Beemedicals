@@ -6,7 +6,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = ('id','name','image_url','description','short_description') 
+        fields = ('id','name','image_url','description','short_description','slug') 
 
     def get_image_url(self, category):
         request = self.context.get('request')
@@ -19,11 +19,12 @@ class ProductImageSerializer(serializers.ModelSerializer):
         fields = ["image"]
 
 class ProductSerializer(serializers.ModelSerializer):
-
+    
     images_urls = serializers.SerializerMethodField()
+
     class Meta:
         model = Product
-        fields = ('id','name','description','short_description','stock','price','images_urls')
+        fields = ('id','name','description','short_description','stock','price','images_urls','slug')
 
     def get_images_urls(self,product):
         request = self.context.get("request")

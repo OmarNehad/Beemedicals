@@ -5,6 +5,7 @@ import {
   Grid,
   Heading,
   Text,
+  SimpleGrid,
   IconButton,
   Button,
   VStack,
@@ -25,17 +26,27 @@ import {
   GridItem,
 } from "@chakra-ui/react";
 import Layout from "../../components/layout";
+import ProductCard from "../../components/productCard";
 
 export default function Category(products) {
   return (
     <Layout>
-      <Grid>
-        {products.data.map((product) => (
-          <GridItem key={product.id}>
-            <h1>{product}</h1>
-          </GridItem>
-        ))}
-      </Grid>
+      <Flex>
+        <SimpleGrid columns={{ md: 1, lg: 3 }} justifyItems="center">
+          {/* TODO: Handle 404 pages */}
+          {products.data.map((product) => (
+            <Box key={product.id}>
+              <ProductCard
+                name={product.name}
+                shortDes={product.short_description}
+                price={product.price}
+                stock={product.stock}
+                MainImage={product.images_urls[0]}
+              />
+            </Box>
+          ))}
+        </SimpleGrid>
+      </Flex>
     </Layout>
   );
 }
