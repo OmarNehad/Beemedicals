@@ -14,6 +14,7 @@ import {
   Tab,
   TabPanels,
   TabPanel,
+  Image,
   Flex,
   Stack,
   Text,
@@ -23,10 +24,9 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 
-import Image from "next/image";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 
-const ServerQuickActions = () => {
+const Services = () => {
   return (
     <Tabs isLazy colorScheme="red">
       <TabList>
@@ -39,7 +39,7 @@ const ServerQuickActions = () => {
             key={i}
           >
             <Box textAlign={"center"}>
-              <img src={item.logoUrl} />
+              <Image src={item.logoUrl} />
               <Text fontWeight={600}> {item.logoTitle}</Text>
             </Box>
           </Tab>
@@ -57,7 +57,7 @@ const ServerQuickActions = () => {
                 <Text> {item.desc}</Text>
               </Box>
               <Box>
-                <img src={item.imageUrl} />
+                <Image maxH={"500px"} src={item.imageUrl} />
               </Box>
             </SimpleGrid>
           </TabPanel>
@@ -67,7 +67,7 @@ const ServerQuickActions = () => {
   );
 };
 
-export default ServerQuickActions;
+export default Services;
 
 const ALL_SERVICES = [
   {

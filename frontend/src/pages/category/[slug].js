@@ -1,54 +1,7 @@
-import {
-  Container,
-  Flex,
-  Box,
-  Grid,
-  Heading,
-  Text,
-  SimpleGrid,
-  IconButton,
-  Button,
-  VStack,
-  HStack,
-  Stack,
-  InputRightElement,
-  Wrap,
-  WrapItem,
-  FormControl,
-  FormLabel,
-  Input,
-  FormErrorMessage,
-  InputGroup,
-  InputLeftElement,
-  Textarea,
-  Spacer,
-  Modal,
-  GridItem,
-} from "@chakra-ui/react";
-import Layout from "../../components/layout";
-import ProductCard from "../../components/productCard";
+import ProductsGrid from "../../components/productsGrid";
 
 export default function Category(products) {
-  return (
-    <Layout>
-      <Flex>
-        <SimpleGrid columns={{ md: 1, lg: 3 }} justifyItems="center">
-          {/* TODO: Handle 404 pages */}
-          {products.data.map((product) => (
-            <Box key={product.id}>
-              <ProductCard
-                name={product.name}
-                shortDes={product.short_description}
-                price={product.price}
-                stock={product.stock}
-                MainImage={product.images_urls[0]}
-              />
-            </Box>
-          ))}
-        </SimpleGrid>
-      </Flex>
-    </Layout>
-  );
+  return <ProductsGrid products={products.data} />;
 }
 
 export async function getStaticPaths() {

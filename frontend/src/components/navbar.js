@@ -23,6 +23,8 @@ import {
   ChevronRightIcon,
 } from "@chakra-ui/icons";
 
+import { BsFillCartFill } from "react-icons/bs";
+
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
 
@@ -73,28 +75,9 @@ export default function Navbar() {
           direction={"row"}
           spacing={6}
         >
-          <Button
-            as={"a"}
-            fontSize={"sm"}
-            fontWeight={400}
-            variant={"link"}
-            href={"#"}
-          >
-            Sign In
-          </Button>
-          <Button
-            display={{ base: "none", md: "inline-flex" }}
-            fontSize={"sm"}
-            fontWeight={600}
-            color={"white"}
-            bg={"pink.400"}
-            href={"#"}
-            _hover={{
-              bg: "pink.300",
-            }}
-          >
-            Sign Up
-          </Button>
+          <Link mr={5} href="/cart">
+            <Icon as={BsFillCartFill} onClick />
+          </Link>
         </Stack>
       </Flex>
 

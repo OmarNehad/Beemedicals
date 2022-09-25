@@ -1,10 +1,15 @@
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, layout } from "@chakra-ui/react";
 import "../styles/global.css";
-
+import { CartProvider } from "react-use-cart";
+import Layout from "../components/layout";
 function MyApp({ Component, pageProps }) {
   return (
     <ChakraProvider>
-      <Component {...pageProps} />
+      <CartProvider>
+        <Layout {...pageProps}>
+          <Component {...pageProps} />
+        </Layout>
+      </CartProvider>
     </ChakraProvider>
   );
 }

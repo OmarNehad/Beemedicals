@@ -8,24 +8,35 @@ import {
   Icon,
   chakra,
   Tooltip,
+  Link,
+  Button,
 } from "@chakra-ui/react";
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 import { FiShoppingCart } from "react-icons/fi";
+import { useCart } from "react-use-cart";
 
-export default function ProductCard(data) {
+export default function ProductCard({ product }) {
+  const { addItem } = useCart();
+
   return (
-    <Flex p={50} w="full" alignItems="center" justifyContent="center">
-      <Box maxW="sm" shadow="lg" position="relative">
-        <Image
-          maxH={"50vh"}
-          src="https://demo.creativethemes.com/blocksy/modern-shop/wp-content/uploads/2020/03/micah-tindell-ysu9athq_BU-unsplash-600x800.jpg"
-          alt={`Picture of ${data.name}`}
-          roundedTop="lg"
-        />
+    <Flex p={5} justifyContent="center">
+      <Box position="relative">
+        <chakra.a href={`/product/${product.slug}`}>
+          <Image
+            src={
+              "https://demo.creativethemes.com/blocksy/modern-shop/wp-content/uploads/2020/03/micah-tindell-ysu9athq_BU-unsplash-300x400.jpg"
+            }
+            alt={`Picture of ${product.name}`}
+            roundedTop="lg"
+          />
 
-        <Box p="3">
-          <Flex mt="1" justifyContent="space-between" alignContent="center">
-            <Flex direction={"column"}>
+          <Box p="3">
+            <Flex
+              direction={"column"}
+              mt="1"
+              justifyContent="space-between"
+              alignContent="center"
+            >
               <Box
                 fontSize="xl"
                 fontWeight="semibold"
@@ -33,38 +44,30 @@ export default function ProductCard(data) {
                 lineHeight="tight"
                 isTruncated
               >
-                {data.name}
+                {product.name}
               </Box>
-              <Box as="p" lineHeight="tight" isTruncated>
-                {data.shortDes}
+
+              <Box fontSize="xl" color={useColorModeValue("gray.800", "white")}>
+                ${product.price}
               </Box>
             </Flex>
-            <Tooltip
-              label="Add to cart"
-              bg="white"
-              placement={"top"}
-              color={"gray.800"}
-              fontSize={"1.2em"}
-            >
-              <chakra.a display={"flex"}>
-                <Icon as={FiShoppingCart} h={7} w={7} alignSelf={"center"} />
-              </chakra.a>
-            </Tooltip>
-          </Flex>
-
-          <Flex justifyContent="space-between" alignContent="center">
-            <Box color={data.stock > 22 ? "green" : "red"} fontStyle={"italic"}>
-              Stock avalaible: {data.stock}
-            </Box>
-
-            <Box fontSize="2xl" color={useColorModeValue("gray.800", "white")}>
-              <Box as="span" color={"gray.600"} fontSize="lg">
-                $
-              </Box>
-              {data.price}
-            </Box>
-          </Flex>
-        </Box>
+          </Box>
+        </chakra.a>
+        <Button
+          mt={3}
+          leftIcon={<FiShoppingCart />}
+          onClick={() =>
+            addItem({
+              id: product.id,
+              name: product.name,
+              price: product.price,
+              image: product.images_urls[0],
+              slug: product.slug,
+            })
+          }
+        >
+          Add to Cart
+        </Button>
       </Box>
     </Flex>
   );
