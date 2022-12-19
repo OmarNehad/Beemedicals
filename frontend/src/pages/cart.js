@@ -28,18 +28,24 @@ import {
 
 import { HiTrash } from "react-icons/hi";
 
-export default function Cart() {
-  const {
-    cartTotal,
-    isEmpty,
-    totalUniqueItems,
-    items,
-    totalItems,
-    updateItemQuantity,
-    emptyCart,
-  } = useCart();
+import { useEffect, useState } from "react";
 
-  if (isEmpty)
+export default function Cart() {
+  const { cartTotal, isEmpty, totalUniqueItems, items, updateItemQuantity } =
+    useCart();
+
+  const useMounted = () => {
+    const [hasMounted, setHasMounted] = useState(false);
+
+    useEffect(() => {
+      setHasMounted(true);
+    }, []);
+
+    return { hasMounted };
+  };
+  const numOfItemsInCart = useMounted ? totalUniqueItems : 0;
+
+  if (numOfItemsInCart == 0)
     return (
       <>
         <Heading>Quota is Empty</Heading>

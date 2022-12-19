@@ -1,9 +1,33 @@
 import ProductsGrid from "../../components/productsGrid";
-import { Box } from "@chakra-ui/react";
+import {
+  Image,
+  Box,
+  Text,
+  Flex,
+  SimpleGrid,
+  Container,
+  Heading,
+} from "@chakra-ui/react";
 export default function Product(product) {
+  product = product.data;
   return (
     <Box>
-      <p>{JSON.stringify(product.data)} </p>
+      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10} mb={5}>
+        <Image
+          src={
+            "https://demo.creativethemes.com/blocksy/modern-shop/wp-content/uploads/2020/03/micah-tindell-ysu9athq_BU-unsplash.jpg"
+          }
+        />
+        <Box>
+          <Heading mb="5px">{product.name}</Heading>
+          <Text mb="5px" fontSize={"xl"}>
+            ${product.price}
+          </Text>
+          <Text>{product.short_description}</Text>
+        </Box>
+      </SimpleGrid>
+      <Heading mb={5}>Description</Heading>
+      <Text>{product.description}</Text>
     </Box>
   );
 }

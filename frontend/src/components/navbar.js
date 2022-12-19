@@ -29,7 +29,7 @@ export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
-    <Box>
+    <Box as="header" position="fixed" w="100%">
       <Flex
         bg={useColorModeValue("white", "gray.800")}
         color={useColorModeValue("gray.600", "white")}
@@ -76,7 +76,7 @@ export default function Navbar() {
           spacing={6}
         >
           <Link mr={5} href="/cart">
-            <Icon as={BsFillCartFill} onClick />
+            <Icon as={BsFillCartFill} />
           </Link>
         </Stack>
       </Flex>
@@ -247,8 +247,8 @@ const NAV_ITEMS = [
     href: "/",
   },
   {
-    label: "Devices",
-    href: "/devices",
+    label: "Products",
+    href: "/products",
   },
   {
     label: "About us",
